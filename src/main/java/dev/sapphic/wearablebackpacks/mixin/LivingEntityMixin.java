@@ -1,7 +1,7 @@
 package dev.sapphic.wearablebackpacks.mixin;
 
-import dev.sapphic.wearablebackpacks.client.BackpackLid;
-import dev.sapphic.wearablebackpacks.client.BackpackWearer;
+import dev.sapphic.wearablebackpacks.BackpackLid;
+import dev.sapphic.wearablebackpacks.BackpackWearer;
 import dev.sapphic.wearablebackpacks.network.BackpackServerNetwork;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,9 +24,8 @@ abstract class LivingEntityMixin extends Entity implements BackpackWearer {
     super(type, world);
   }
   
-  @Unique
   @Override
-  public final BackpackLid getBackpackState() {
+  public final BackpackLid wearableBackpacks$getBackpackState() {
     return this.backpackState;
   }
   

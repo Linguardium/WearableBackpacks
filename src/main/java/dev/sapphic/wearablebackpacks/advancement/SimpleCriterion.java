@@ -5,6 +5,7 @@ import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -26,14 +27,14 @@ public final class SimpleCriterion extends AbstractCriterion<SimpleCriterion.Con
   
   @Override
   protected Conditions conditionsFromJson(
-    final JsonObject json, final EntityPredicate.Extended predicate,
+    final JsonObject json, LootContextPredicate lootContextPredicate,
     final AdvancementEntityPredicateDeserializer deserializer
   ) {
-    return new Conditions(predicate);
+    return new Conditions(lootContextPredicate);
   }
-  
+
   public final class Conditions extends AbstractCriterionConditions {
-    private Conditions(final EntityPredicate.Extended predicate) {
+    private Conditions(LootContextPredicate predicate) {
       super(SimpleCriterion.this.id, predicate);
     }
   }

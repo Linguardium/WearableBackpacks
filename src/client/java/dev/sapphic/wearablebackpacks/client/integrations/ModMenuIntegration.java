@@ -1,4 +1,4 @@
-package dev.sapphic.wearablebackpacks.integration;
+package dev.sapphic.wearablebackpacks.client.integrations;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

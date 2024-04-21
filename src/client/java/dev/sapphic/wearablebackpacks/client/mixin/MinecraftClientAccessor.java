@@ -1,4 +1,4 @@
-package dev.sapphic.wearablebackpacks.mixin.client;
+package dev.sapphic.wearablebackpacks.client.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.WindowEventHandler;

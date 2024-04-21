@@ -11,15 +11,6 @@
     "PlayerEquipmentSlotMixin",
     "ServerPlayHandlerMixin"
   ],
-  "client": [
-    "client.ArmorFeatureRendererMixin",
-    "client.BlockModelRendererMixin",
-    "client.DrawableHelperAccessor",
-    "client.DualVertexConsumerAccessor",
-    "client.MinecraftClientAccessor",
-    "client.MinecraftClientMixin",
-    "client.ModelLoaderAccessor"
-  ],
   "injectors": {
     "defaultRequire": 1
   }

@@ -1,8 +1,10 @@
 package dev.sapphic.wearablebackpacks.inventory;
 
+import com.google.common.collect.Iterators;
 import dev.sapphic.wearablebackpacks.Backpack;
+import dev.sapphic.wearablebackpacks.BackpackWearer;
 import dev.sapphic.wearablebackpacks.Backpacks;
-import dev.sapphic.wearablebackpacks.client.BackpackWearer;
+import dev.sapphic.wearablebackpacks.initializers.BackpackSlotIntegrations;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +18,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.Stream;
 
 public final class WornBackpack implements BackpackContainer {
   private final int rows;
@@ -132,7 +136,7 @@ public final class WornBackpack implements BackpackContainer {
   @Override
   public boolean canPlayerUse(final PlayerEntity player) {
     if ((player == this.wearer) || ((this.wearer != null) && (player.squaredDistanceTo(this.wearer) <= 64.0))) {
-      return this.wearer.getEquippedStack(EquipmentSlot.CHEST) == this.backpack;
+      return BackpackSlotIntegrations.streamEnabledIntegrations().anyMatch(handler->handler.isSpecificBackpackEquipped(wearer,backpack));
     }
     return false;
   }
@@ -141,10 +145,10 @@ public final class WornBackpack implements BackpackContainer {
   public void onClose(final PlayerEntity player) {
     this.markDirty();
     final LivingEntity source = (this.wearer != null) ? this.wearer : player;
-    if (!source.world.isClient) {
-      source.world.playSound(null, source.getX(), source.getY(), source.getZ(),
+    if (!source.getWorld().isClient()) {
+      source.getWorld().playSound(null, source.getX(), source.getY(), source.getZ(),
         SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, source.getSoundCategory(),
-        0.5F, (source.world.random.nextFloat() * 0.1F) + 0.9F
+        0.5F, (source.getWorld().getRandom().nextFloat() * 0.1F) + 0.9F
       );
       BackpackWearer.getBackpackState(source).closed();
     }

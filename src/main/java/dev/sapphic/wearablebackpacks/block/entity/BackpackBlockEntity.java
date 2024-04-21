@@ -1,12 +1,12 @@
 package dev.sapphic.wearablebackpacks.block.entity;
 
 import dev.sapphic.wearablebackpacks.Backpack;
+import dev.sapphic.wearablebackpacks.BackpackLid;
 import dev.sapphic.wearablebackpacks.BackpackOptions;
 import dev.sapphic.wearablebackpacks.Backpacks;
-import dev.sapphic.wearablebackpacks.client.BackpackLid;
+import dev.sapphic.wearablebackpacks.initializers.BackpackBlocks;
 import dev.sapphic.wearablebackpacks.inventory.BackpackContainer;
 import dev.sapphic.wearablebackpacks.inventory.BackpackMenu;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
@@ -27,7 +28,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class BackpackBlockEntity extends LootableContainerBlockEntity implements Backpack, BackpackContainer, BlockEntityTicker<BackpackBlockEntity> {
@@ -56,7 +56,7 @@ public final class BackpackBlockEntity extends LootableContainerBlockEntity impl
   private boolean enchanted;
   
   public BackpackBlockEntity(BlockPos pos, BlockState state) {
-    super(Backpacks.BLOCK_ENTITY, pos, state);
+    super(BackpackBlocks.BACKPACK_BLOCK_ENTITY, pos, state);
     this.contents = DefaultedList.ofSize(this.rows * this.columns, ItemStack.EMPTY);
   }
   
@@ -197,30 +197,30 @@ public final class BackpackBlockEntity extends LootableContainerBlockEntity impl
     tag.putInt("Rows", this.rows);
     tag.putInt("Columns", this.columns);
   }
-  
-  
-  //    @Override
-  public void fromTag(final BlockState state, final NbtCompound tag) {
-    super.readNbt(tag);
-    if (tag.contains("Rows", NbtType.INT)) {
-      this.rows = BackpackOptions.getRows(tag.getInt("Rows"));
-    }
-    if (tag.contains("Columns", NbtType.INT)) {
-      this.columns = BackpackOptions.getColumns(tag.getInt("Columns"));
-    }
-    this.contents = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-    if (!this.deserializeLootTable(tag)) {
-      Inventories.readNbt(tag, this.contents);
-    }
-    this.empty = super.isEmpty();
-    if (tag.contains("Color", NbtType.INT)) {
-      this.color = tag.getInt("Color") & 0xFFFFFF;
-    }
-    if (tag.contains("Enchantments", NbtType.LIST)) {
-      this.enchantments = tag.getList("Enchantments", NbtType.COMPOUND);
-      this.enchanted = true;
-    }
-  }
+//
+//
+//  //    @Override
+//  public void fromTag(final BlockState state, final NbtCompound tag) {
+//    super.readNbt(tag);
+//    if (tag.contains("Rows", NbtElement.INT_TYPE)) {
+//      this.rows = BackpackOptions.getRows(tag.getInt("Rows"));
+//    }
+//    if (tag.contains("Columns", NbtElement.INT_TYPE)) {
+//      this.columns = BackpackOptions.getColumns(tag.getInt("Columns"));
+//    }
+//    this.contents = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+//    if (!this.deserializeLootTable(tag)) {
+//      Inventories.readNbt(tag, this.contents);
+//    }
+//    this.empty = super.isEmpty();
+//    if (tag.contains("Color", NbtElement.INT_TYPE)) {
+//      this.color = tag.getInt("Color") & 0xFFFFFF;
+//    }
+//    if (tag.contains("Enchantments", NbtElement.LIST_TYPE)) {
+//      this.enchantments = tag.getList("Enchantments", NbtElement.COMPOUND_TYPE);
+//      this.enchanted = true;
+//    }
+//  }
 
 //
 //    public NbtCompound writeNbt(final NbtCompound tag) {
@@ -248,23 +248,23 @@ public final class BackpackBlockEntity extends LootableContainerBlockEntity impl
   protected ScreenHandler createScreenHandler(final int id, final PlayerInventory inventory) {
     return new BackpackMenu(id, inventory, this);
   }
-  
-  public void fromClientTag(final NbtCompound tag) {
-    if (tag.contains("Color", NbtType.INT)) {
-      this.color = tag.getInt("Color") & 0xFFFFFF;
-    }
-    this.empty = tag.getBoolean("Empty");
-    this.enchanted = tag.getBoolean("Enchanted");
-  }
-  
-  public NbtCompound toClientTag(final NbtCompound tag) {
-    if (this.hasColor()) {
-      tag.putInt("Color", this.color);
-    }
-    tag.putBoolean("Empty", this.empty);
-    tag.putBoolean("Enchanted", this.enchanted);
-    return tag;
-  }
+//
+//  public void fromClientTag(final NbtCompound tag) {
+//    if (tag.contains("Color", NbtElement.INT_TYPE)) {
+//      this.color = tag.getInt("Color") & 0xFFFFFF;
+//    }
+//    this.empty = tag.getBoolean("Empty");
+//    this.enchanted = tag.getBoolean("Enchanted");
+//  }
+//
+//  public NbtCompound toClientTag(final NbtCompound tag) {
+//    if (this.hasColor()) {
+//      tag.putInt("Color", this.color);
+//    }
+//    tag.putBoolean("Empty", this.empty);
+//    tag.putBoolean("Enchanted", this.enchanted);
+//    return tag;
+//  }
   
   @Override
   public boolean onSyncedBlockEvent(final int type, final int data) {

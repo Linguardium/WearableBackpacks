@@ -1,6 +1,7 @@
 package dev.sapphic.wearablebackpacks.inventory;
 
 import dev.sapphic.wearablebackpacks.item.BackpackItem;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
@@ -12,6 +13,6 @@ final class BackpackSlot extends Slot {
   
   @Override
   public boolean canInsert(final ItemStack stack) {
-    return !(stack.getItem() instanceof BackpackItem);
+    return stack.getItem().canBeNested();
   }
 }

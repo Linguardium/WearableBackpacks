@@ -7,26 +7,31 @@
   "license": "MIT",
   "icon": "assets/wearablebackpacks/icon.png",
   "depends": {
-    "fabricloader": "*",
-    "minecraft": "1.19.2",
+    "fabricloader": ">=0.15.0",
+    "fabric-api": ">=0.92.1",
+    "minecraft": "1.20.1",
     "java": ">=17"
   },
   "entrypoints": {
     "client": [
-      "dev.sapphic.wearablebackpacks.client.BackpacksClient",
-      "dev.sapphic.wearablebackpacks.network.BackpackClientNetwork"
+      "dev.sapphic.wearablebackpacks.client.BackpacksClient"
     ],
     "main": [
       "dev.sapphic.wearablebackpacks.Backpacks",
       "dev.sapphic.wearablebackpacks.advancement.BackpackCriteria",
-      "dev.sapphic.wearablebackpacks.loot.BackpackLootFunctions",
       "dev.sapphic.wearablebackpacks.network.BackpackServerNetwork",
       "dev.sapphic.wearablebackpacks.stat.BackpackStats"
     ],
-    "modmenu": ["dev.sapphic.wearablebackpacks.integration.ModMenuIntegration"]
+    "modmenu": [
+      "dev.sapphic.wearablebackpacks.client.integrations.ModMenuIntegration"
+    ]
   },
   "mixins": [
-    "wearablebackpacks.mixins.json"
+    "wearablebackpacks.mixins.json",
+    {
+      "config": "wearablebackpacks.client.mixins.json",
+      "environment": "client"
+    }
   ],
   "authors": [
     "Chloe Dawn",

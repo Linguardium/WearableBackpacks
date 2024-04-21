@@ -1,4 +1,4 @@
-package dev.sapphic.wearablebackpacks.client;
+package dev.sapphic.wearablebackpacks;
 
 import dev.sapphic.wearablebackpacks.block.entity.BackpackBlockEntity;
 import net.minecraft.block.BlockState;

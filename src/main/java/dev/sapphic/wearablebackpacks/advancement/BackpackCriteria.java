@@ -3,6 +3,7 @@ package dev.sapphic.wearablebackpacks.advancement;
 import dev.sapphic.wearablebackpacks.Backpacks;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.advancement.CriterionRegistry;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.util.Identifier;
 
 public final class BackpackCriteria implements ModInitializer {
@@ -15,7 +16,7 @@ public final class BackpackCriteria implements ModInitializer {
   
   @Override
   public void onInitialize() {
-    CriterionRegistry.register(EQUIPPED);
-    CriterionRegistry.register(DYED);
+    Criteria.register(EQUIPPED);
+    Criteria.register(DYED);
   }
 }
